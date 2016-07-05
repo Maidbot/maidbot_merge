@@ -8,7 +8,7 @@ Travis - Continuous Integration | Coveralls - Coverage
 ------------------------------- | --------------------
 [![Build Status](https://travis-ci.org/davetcoleman/moveit.svg)](https://travis-ci.org/davetcoleman/moveit) | [![Coverage Status](https://coveralls.io/repos/github/davetcoleman/moveit/badge.svg?branch=kinetic-devel)](https://coveralls.io/github/davetcoleman/moveit?branch=kinetic-devel)
 
-ROS Buildfarm | Trusty Devel Source | AMD64 Trusty Debian
+ROS Buildfarm | Jade Trusty Devel Source | AMD64 Jade Trusty Debian
 ------------- | ------------------- | -------------------
 moveit_core | [![Build Status](http://build.ros.org/buildStatus/icon?job=Jsrc_uT__moveit_core__ubuntu_trusty__source)](http://build.ros.org/view/Jsrc_uT/job/Jsrc_uT__moveit_core__ubuntu_trusty__source/) | [![Build Status](http://build.ros.org/buildStatus/icon?job=Jbin_uT64__moveit_core__ubuntu_trusty_amd64__binary)](http://build.ros.org/view/Jbin_uT64/job/Jbin_uT64__moveit_core__ubuntu_trusty_amd64__binary/)
 moveit_ros | [![Build Status](http://build.ros.org/buildStatus/icon?job=Jsrc_uT__moveit_ros__ubuntu_trusty__source)](http://build.ros.org/view/Jsrc_uT/job/Jsrc_uT__moveit_ros__ubuntu_trusty__source/) | [![Build Status](http://build.ros.org/buildStatus/icon?job=Jbin_uT64__moveit_ros__ubuntu_trusty_amd64__binary)](http://build.ros.org/view/Jbin_uT64/job/Jbin_uT64__moveit_ros__ubuntu_trusty_amd64__binary/)
@@ -32,32 +32,55 @@ moveit_commander | [![Build Status](http://build.ros.org/buildStatus/icon?job=Js
 
 The automated script for merging repos is located [here](https://github.com/davetcoleman/moveit_merge/tree/master). To copy your code changes on your own machine into the same unified structure, simply copy the previously separated packages as subfolders in this new unified repository.
 
-Currently this repo build in Jade but will soon build in Kinetic
-
 ## Install
 
 ### Ubuntu Debian
 
 > Note: this package has not been released yet
 
-    sudo apt-get install ros-kinetic-moveit-desktop-full
+    sudo apt-get install ros-kinetic-moveit
 
 ### Build from Source
 
-To build this package in a new workspace:  TODO switch to kinetic
+To build this package in a new workspace:
 
     mkdir -p ws_moveit/src
     cd ws_moveit/src
     wstool init .
     wstool merge https://raw.githubusercontent.com/davetcoleman/moveit/kinetic-devel/moveit.rosinstall
     wstool update
-    rosdep install --from-paths . --ignore-src --rosdistro jade
+    rosdep install --from-paths . --ignore-src --rosdistro kinetic
     cd ..
     catkin build
 
 ## Build with Docker in a Container
 
 A Docker container is available for testing in [moveit_docker](https://github.com/davetcoleman/moveit_docker)
+
+## Latest MoveIt! Branches for Kinetic
+
+To build from source, first switch to shadow fixed repo (this is for OMPL):
+http://wiki.ros.org/ShadowRepository
+
+These are currently required to get Kinetic to build.
+
+Repo            | Latest Branch | Notes | Special Branches to compile Kinetic
+--------------- | ------------- | ----------------------------------------------------- | ---------------------------------------
+core            | kinetic-devel | [PR#304](https://github.com/ros-planning/moveit_core/pull/304) | [kinetic-devel-synced (davetcoleman)](https://github.com/davetcoleman/moveit_core/tree/kinetic-devel-synced)
+ros             | jade-devel    | [PR#699]( https://github.com/ros-planning/moveit_ros/pull/699)  | [cbrew_warehouse_ros_refactor (davetcoleman)](https://github.com/davetcoleman/moveit_ros/tree/cbrew_warehouse_ros_refactor)
+msgs            | jade-devel    | |
+planners        | kinetic-devel | [PR#73](https://github.com/ros-planning/moveit_planners/pull/73) | [kinetic-devel-cpp11 (davetcoleman)](https://github.com/davetcoleman/moveit_planners/tree/kinetic-devel-cpp11)
+plugins         | jade-devel	| |
+commander       | jade-devel	| |
+resources       | master		| |
+setup_assistant | jade-devel	| |
+docs            | kinetic-devel	| |
+ikfast          | kinetic-devel	| |
+experimental    | master	| |
+srdfdom         | indigo-devel	| |
+warehouse_ros 	| jade-devel | |
+manipulation_msgs 	| hydro-devel | |
+household_objects_database_msgs 	| hydro-devel | |
 
 ## Contribute
 
