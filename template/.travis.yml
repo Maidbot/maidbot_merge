@@ -1,27 +1,23 @@
-# This config file for Travis CI utilizes ros-industrial/industrial_ci package.
-# For more info for the package, see https://github.com/ros-industrial/industrial_ci/blob/master/README.rst
-sudo: required 
-dist: trusty 
-language: generic 
+# This config file for Travis CI utilizes https://github.com/davetcoleman/moveit_ci/ package.
+sudo: required
+dist: trusty
+services:
+  - docker
+language: generic
 compiler:
   - gcc
 notifications:
   email:
     recipients:
-      - gm130s@gmail.com
-      - davetcoleman@gmail.com
+      - dave@dav.ee
 env:
   matrix:
-    - ROS_DISTRO="jade" ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu
-    - ROS_DISTRO="jade" ROS_REPOSITORY_PATH=http://packages.ros.org/ros-shadow-fixed/ubuntu
-    - ROS_DISTRO="jade" ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu UPSTREAM_WORKSPACE=file
-    - ROS_DISTRO="jade" ROS_REPOSITORY_PATH=http://packages.ros.org/ros-shadow-fixed/ubuntu UPSTREAM_WORKSPACE=file
-    - ROS_DISTRO="jade" PRERELEASE=true
-matrix:
-  allow_failures:
-    - env: ROS_DISTRO="jade" PRERELEASE=true
-install:
-  - git clone https://github.com/ros-industrial/industrial_ci.git .ci_config
+#    - ROS_DISTRO="kinetic"  ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu              UPSTREAM_WORKSPACE=.travis.rosinstall
+    - ROS_DISTRO="kinetic"  ROS_REPOSITORY_PATH=http://packages.ros.org/ros-shadow-fixed/ubuntu UPSTREAM_WORKSPACE=.travis.rosinstall
+# matrix:
+#   allow_failures:
+#     - env: ROS_DISTRO="kinetic" ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu              UPSTREAM_WORKSPACE=.travis.rosinstall
+before_script:
+  - git clone -q https://github.com/davetcoleman/moveit_ci.git .ci_config
 script:
-  - source .ci_config/travis.sh  # mongo hack (https://github.com/ros-planning/warehouse_ros/blob/849d5979e0186db124d3a1eda0278ebaa15e4ff0/.travis.yml#L27-L29) is already taken care of in here.
-#  - source ./travis.sh  # Enable this when you have a package-local script 
+  - source .ci_config/travis.sh

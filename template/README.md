@@ -57,10 +57,15 @@ To build this package in a new workspace:
 
 A Docker container is available for testing in [moveit_docker](https://github.com/davetcoleman/moveit_docker)
 
-## Latest MoveIt! Branches for Kinetic
+## Use Shadow Fixed to Build
 
-To build from source, first switch to shadow fixed repo (this is for OMPL):
-http://wiki.ros.org/ShadowRepository
+To build from source, first [switch to shadow fixed repo](https://github.com/ros-interactive-manipulation/tabletop_object_perception/issues/3) (this is for OMPL until next Kinetic release):
+
+    emacs /etc/apt/sources.list.d/ros-latest.list
+
+Change ros to ros-shadow-fixed. Then run ``apt-get update``.
+
+## Latest MoveIt! Branches for Kinetic
 
 These are currently required to get Kinetic to build.
 
@@ -69,7 +74,7 @@ Repo            | Latest Branch | Notes | Special Branches to compile Kinetic
 core            | kinetic-devel | [PR#304](https://github.com/ros-planning/moveit_core/pull/304) | [kinetic-devel-synced (davetcoleman)](https://github.com/davetcoleman/moveit_core/tree/kinetic-devel-synced)
 ros             | jade-devel    | [PR#699]( https://github.com/ros-planning/moveit_ros/pull/699)  | [cbrew_warehouse_ros_refactor (davetcoleman)](https://github.com/davetcoleman/moveit_ros/tree/cbrew_warehouse_ros_refactor)
 msgs            | jade-devel    | |
-planners        | kinetic-devel | [PR#73](https://github.com/ros-planning/moveit_planners/pull/73) | [kinetic-devel-cpp11 (davetcoleman)](https://github.com/davetcoleman/moveit_planners/tree/kinetic-devel-cpp11)
+planners        | kinetic-devel | |
 plugins         | jade-devel	| |
 commander       | jade-devel	| |
 resources       | master		| |
