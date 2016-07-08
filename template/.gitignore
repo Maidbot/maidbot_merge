@@ -53,4 +53,4 @@ qtcreator-*
 CATKIN_IGNORE
 
 # Continous Integration
-.ci_config
+.moveit_ci

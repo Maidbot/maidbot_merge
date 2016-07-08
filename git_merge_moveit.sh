@@ -20,8 +20,10 @@ export repo_names_to_merge=(
     moveit_experimental
 )
 export repo_ssh_to_merge=(
-    http://github.com/ros-planning/moveit_core.git
-    http://github.com/ros-planning/moveit_ros.git
+    #http://github.com/ros-planning/moveit_core.git
+    http://github.com/davetcoleman/moveit_core.git
+    #http://github.com/ros-planning/moveit_ros.git
+    http://github.com/davetcoleman/moveit_ros.git
     http://github.com/ros-planning/moveit_planners.git
     http://github.com/ros-planning/moveit_plugins.git
     http://github.com/ros-planning/moveit_setup_assistant.git
@@ -31,8 +33,10 @@ export repo_ssh_to_merge=(
     http://github.com/ros-planning/moveit_experimental.git
 )
 export repo_branch_to_merge=(
-    kinetic-devel # core
-    jade-devel #ros
+    #kinetic-devel # core
+    kinetic-devel-synced
+    #jade-devel #ros
+    cbrew_warehouse_ros_refactor
     kinetic-devel #planners
     jade-devel #plugins
     jade-devel #setup assistant
