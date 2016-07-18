@@ -69,23 +69,24 @@ Change ros to ros-shadow-fixed. Then run ``apt-get update``.
 
 These are currently required to get Kinetic to build.
 
-Repo            | Latest Branch | Notes | Special Branches to compile Kinetic
---------------- | ------------- | ----------------------------------------------------- | ---------------------------------------
-core            | kinetic-devel | [PR#304](https://github.com/ros-planning/moveit_core/pull/304) | [kinetic-devel-synced (davetcoleman)](https://github.com/davetcoleman/moveit_core/tree/kinetic-devel-synced)
-ros             | jade-devel    | [PR#699]( https://github.com/ros-planning/moveit_ros/pull/699)  | [cbrew_warehouse_ros_refactor (davetcoleman)](https://github.com/davetcoleman/moveit_ros/tree/cbrew_warehouse_ros_refactor)
-msgs            | jade-devel    | |
-planners        | kinetic-devel | |
-plugins         | jade-devel	| |
-commander       | jade-devel	| |
-resources       | master		| |
-setup_assistant | jade-devel	| |
-docs            | kinetic-devel	| |
-ikfast          | kinetic-devel	| |
-experimental    | master	| |
-srdfdom         | indigo-devel	| |
-warehouse_ros 	| jade-devel | |
-manipulation_msgs 	| hydro-devel | |
-household_objects_database_msgs 	| hydro-devel | |
+Repo            | Latest Branch | Notes
+--------------- | ------------- | -------------------
+core            | kinetic-devel |
+ros             | kinetic-devel    |
+msgs            | jade-devel    |
+planners        | kinetic-devel |
+plugins         | jade-devel	|
+commander       | jade-devel	|
+resources       | master		|
+setup_assistant | jade-devel	|
+docs            | kinetic-devel	|
+ikfast          | kinetic-devel	|
+experimental    | master     	|
+srdfdom         | indigo-devel	|
+warehouse_ros 	| jade-devel    |
+geometric_shapes  | kinetic-devel    |
+manipulation_msgs | hydro-devel |
+household_objects_database_msgs | hydro-devel |
 
 ## Contribute
 
