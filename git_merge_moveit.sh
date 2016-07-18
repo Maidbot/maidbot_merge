@@ -12,10 +12,10 @@ export repo_names_to_merge=(
     moveit_core
     moveit_ros
     moveit_planners
+    moveit_ikfast
     moveit_plugins
     moveit_setup_assistant
     moveit_commander
-    moveit_ikfast
     moveit_resources
     moveit_experimental
 )
@@ -23,10 +23,10 @@ export repo_ssh_to_merge=(
     http://github.com/ros-planning/moveit_core.git
     http://github.com/ros-planning/moveit_ros.git
     http://github.com/ros-planning/moveit_planners.git
+    http://github.com/ros-planning/moveit_ikfast.git
     http://github.com/ros-planning/moveit_plugins.git
     http://github.com/ros-planning/moveit_setup_assistant.git
     http://github.com/ros-planning/moveit_commander.git
-    http://github.com/ros-planning/moveit_ikfast.git
     http://github.com/ros-planning/moveit_resources.git
     http://github.com/ros-planning/moveit_experimental.git
 )
@@ -34,10 +34,10 @@ export repo_branch_to_merge=(
     kinetic-devel #core
     kinetic-devel #ros
     kinetic-devel #planners
+    kinetic-devel #ikfast
     jade-devel #plugins
     jade-devel #setup assistant
     jade-devel #commander
-    kinetic-devel #ikfast
     master # resources
     master # experimental
 )
