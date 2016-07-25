@@ -18,6 +18,10 @@
     version: jade-devel
 # Temporary until released into kinetic
 - git:
+    local-name: geometric_shapes
+    uri: https://github.com/ros-planning/geometric_shapes.git
+    version: kinetic-devel
+- git:
     local-name: manipulation_msgs
     uri: https://github.com/ros-interactive-manipulation/manipulation_msgs.git
     version: hydro-devel
