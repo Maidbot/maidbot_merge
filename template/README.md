@@ -85,8 +85,6 @@ experimental    | master     	|
 srdfdom         | indigo-devel	|
 warehouse_ros 	| jade-devel    |
 geometric_shapes  | kinetic-devel    |
-manipulation_msgs | hydro-devel |
-household_objects_database_msgs | hydro-devel |
 
 ## Contribute
 
