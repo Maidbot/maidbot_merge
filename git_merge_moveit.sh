@@ -30,7 +30,7 @@ export repo_ssh_to_merge=(
     http://github.com/ros-planning/moveit_resources.git
     http://github.com/ros-planning/moveit_experimental.git
 )
-export repo_branch_to_merge=(
+export repo_branch_to_merge_kinetic=(
     kinetic-devel #core
     kinetic-devel #ros
     kinetic-devel #planners
@@ -42,7 +42,32 @@ export repo_branch_to_merge=(
     master # experimental
 )
 
+export repo_branch_to_merge_jade=(
+    jade-devel #core
+    jade-devel #ros
+    jade-devel #planners
+    jade-devel #ikfast
+    jade-devel #plugins
+    jade-devel #setup assistant
+    jade-devel #commander
+    master # resources
+    master # experimental
+)
+
+export repo_branch_to_merge_indigo=(
+    indigo-devel #core
+    indigo-devel #ros
+    indigo-devel #planners
+    indigo-devel #ikfast
+    indigo-devel #plugins
+    indigo-devel #setup assistant
+    indigo-devel #commander
+    master # resources
+    master # experimental
+)
+
 NUM_REPOS=${#repo_names_to_merge[@]}
+NUM_BRANCHES=2
 echo "Merging ${NUM_REPOS} repos"
 
 set -x          # activate debugging from here
@@ -53,6 +78,8 @@ git remote add origin http://github.com/davetcoleman/moveit.git
 
 echo "Before we do a merge, we have to have an initial commit, so we’ll make a dummy commit"
 git commit --allow-empty -m "Initial dummy commit"
+git checkout -b indigo-devel
+git checkout -b jade-devel
 git checkout -b kinetic-devel
 git branch -d master
 
@@ -61,41 +88,55 @@ IGNORE_SUBFOLDERS="-I .git"
 for ((i=0;i<NUM_REPOS;i++)); do
     REPO_NAME=${repo_names_to_merge[$i]}
     REPO_URL=${repo_ssh_to_merge[$i]}
-    REPO_BRANCH=${repo_branch_to_merge[$i]}
     echo "---------------------------------------"
-    echo "Merging in repo $i: ${REPO_NAME} from ${REPO_URL} with branch ${REPO_BRANCH}"
+    echo "Merging in repo $i: ${REPO_NAME} from ${REPO_URL}"
 
-    # Add a remote for and fetch the old repo, then merge
+    # Add a remote for and fetch the old repo
     git remote add -f ${REPO_NAME} ${REPO_URL}
-    git merge ${REPO_NAME}/${REPO_BRANCH} -m "Merging repo ${REPO_NAME} into main unified repo"
 
-    # Generate a list of subfolders to ignore when moving repos into their subfolder
-    IGNORE_SUBFOLDERS="$IGNORE_SUBFOLDERS -I ${REPO_NAME}"
+    for ((i=0;i<NUM_BRANCHES;i++)); do
+        if [ "$NUM_BRANHCES" -eq "0" ]; then
+            git checkout kinetic-devel
+            REPO_BRANCH=${repo_branch_to_merge_kinetic[$i]}
+        # elif [ "$NUM_BRANHCES" -eq "1" ]; then
+            # git checkout jade-devel
+        #     REPO_BRANCH=${repo_branch_to_merge_jade[$i]}
+        else
+            git checkout indigo-devel
+            REPO_BRANCH=${repo_branch_to_merge_indigo[$i]}
+        echo "Processing branch ${REPO_BRANCH}"
 
-    # Make sure there isn't already a folder within the repo named after its parent repo
-    RENAMED_FOLDER=0
-    if [ -d "${REPO_NAME}" ]; then
-        echo "Detected existance of folder named ${REPO_NAME} inside of ${REPO_NAME} - will temporarily rename folder"
-        #read -p "Press any key to continue"
-        # Control will enter here if $DIRECTORY exists.
-        git mv ${REPO_NAME} ${REPO_NAME}_TEMP_RENAME
-        RENAMED_FOLDER=1
+        # Merge the remote repo
+        git merge ${REPO_NAME}/${REPO_BRANCH} -m "Merging repo ${REPO_NAME} into main unified repo"
+
+        # Generate a list of subfolders to ignore when moving repos into their subfolder
+        IGNORE_SUBFOLDERS="$IGNORE_SUBFOLDERS -I ${REPO_NAME}"
+
+        # Make sure there isn't already a folder within the repo named after its parent repo
+        RENAMED_FOLDER=0
+        if [ -d "${REPO_NAME}" ]; then
+            echo "Detected existance of folder named ${REPO_NAME} inside of ${REPO_NAME} - will temporarily rename folder"
+            #read -p "Press any key to continue"
+            # Control will enter here if $DIRECTORY exists.
+            git mv ${REPO_NAME} ${REPO_NAME}_TEMP_RENAME
+            RENAMED_FOLDER=1
+        fi
+
+        # Move the repo files and folders into a subdirectory so they don’t collide with the other repo coming later
+        mkdir ${REPO_NAME}
+        ls -A ${IGNORE_SUBFOLDERS} | xargs -I % git mv % ${REPO_NAME}
+
+        # Rename folder back to original name
+        if [ "$RENAMED_FOLDER" -eq "1" ]; then
+            git mv ${REPO_NAME}/${REPO_NAME}_TEMP_RENAME ${REPO_NAME}/${REPO_NAME}
+            echo "Renamed ${REPO_NAME} inside of ${REPO_NAME} back to original name"
+            #read -p "Press any key to continue"
+        fi
+
+
+        # Commit the move
+        git commit -m "Moved ${REPO_NAME} into subdirectory"
     fi
-
-    # Move the repo files and folders into a subdirectory so they don’t collide with the other repo coming later
-    mkdir ${REPO_NAME}
-    ls -A ${IGNORE_SUBFOLDERS} | xargs -I % git mv % ${REPO_NAME}
-
-    # Rename folder back to original name
-    if [ "$RENAMED_FOLDER" -eq "1" ]; then
-        git mv ${REPO_NAME}/${REPO_NAME}_TEMP_RENAME ${REPO_NAME}/${REPO_NAME}
-        echo "Renamed ${REPO_NAME} inside of ${REPO_NAME} back to original name"
-        #read -p "Press any key to continue"
-    fi
-
-
-    # Commit the move
-    git commit -m "Moved ${REPO_NAME} into subdirectory"
 
     # Cleanup the temporary remote
     git remote remove ${REPO_NAME}
