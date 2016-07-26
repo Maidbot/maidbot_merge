@@ -27,8 +27,8 @@ export repo_ssh_to_merge=(
     http://github.com/ros-planning/moveit_plugins.git
     http://github.com/ros-planning/moveit_setup_assistant.git
     http://github.com/ros-planning/moveit_commander.git
-    http://github.com/ros-planning/moveit_resources.git
-    http://github.com/ros-planning/moveit_experimental.git
+    http://github.com/davetcoleman/moveit_resources.git
+    http://github.com/davetcoleman/moveit_experimental.git
 )
 export repo_branch_to_merge_kinetic=(
     kinetic-devel #core
@@ -38,8 +38,8 @@ export repo_branch_to_merge_kinetic=(
     kinetic-devel #plugins
     kinetic-devel #setup assistant
     kinetic-devel #commander
-    master # resources
-    master # experimental
+    kinetic-devel # resources
+    kinetic-devel # experimental
 )
 
 export repo_branch_to_merge_jade=(
@@ -50,8 +50,8 @@ export repo_branch_to_merge_jade=(
     jade-devel #plugins
     jade-devel #setup assistant
     jade-devel #commander
-    master # resources
-    master # experimental
+    jade-devel # resources
+    jade-devel # experimental
 )
 
 export repo_branch_to_merge_indigo=(
@@ -62,8 +62,8 @@ export repo_branch_to_merge_indigo=(
     indigo-devel #plugins
     indigo-devel #setup assistant
     indigo-devel #commander
-    master # resources
-    master # experimental
+    indigo-devel # resources
+    indigo-devel # experimental
 )
 
 NUM_REPOS=${#repo_names_to_merge[@]}
@@ -83,6 +83,25 @@ git checkout -b jade-devel-temporary-unique-name
 git checkout -b kinetic-devel-temporary-unique-name
 git branch -d master
 
+# All repos must have unique branches for I/J/K so we clone them and make unique branches
+git clone http://github.com/ros-planning/moveit_resources.git
+cd moveit_resources
+hub remote add davetcoleman
+git co -b indigo-devel
+git co -b jade-devel
+git co -b kinetic-devel
+git push davetcoleman --all -f
+cd ..
+git clone http://github.com/ros-planning/moveit_experimental.git
+cd moveit_experimental
+hub remote add davetcoleman
+git co -b indigo-devel
+git co -b jade-devel
+git co -b kinetic-devel
+git push davetcoleman --all -f
+cd ..
+rm -rf moveit_resources moveit_experimental
+read -p "wait" var1
 IGNORE_SUBFOLDERS="-I .git"
 
 for ((i=0;i<NUM_REPOS;i++)); do
@@ -192,7 +211,7 @@ cp $SCRIPT_DIR/template/.gitignore
 git add -A && git commit -a -m "Added README, travis CI, and rosinstall file"
 
 # Kinetic
-git co jade-devel
+git co kinetic-devel
 cp $SCRIPT_DIR/template/README.md .
 cp $SCRIPT_DIR/template/.travis.yml .
 cp $SCRIPT_DIR/template/kinetic/moveit.rosinstall .
