@@ -36,8 +36,8 @@ export repo_branch_to_merge_kinetic=(
     kinetic-devel #planners
     kinetic-devel #ikfast
     kinetic-devel #plugins
-    jade-devel #setup assistant
-    jade-devel #commander
+    kinetic-devel #setup assistant
+    kinetic-devel #commander
     master # resources
     master # experimental
 )
@@ -67,7 +67,7 @@ export repo_branch_to_merge_indigo=(
 )
 
 NUM_REPOS=${#repo_names_to_merge[@]}
-NUM_BRANCHES=2
+NUM_BRANCHES=3
 echo "Merging ${NUM_REPOS} repos"
 
 set -x          # activate debugging from here
@@ -78,9 +78,9 @@ git remote add origin http://github.com/davetcoleman/moveit.git
 
 echo "Before we do a merge, we have to have an initial commit, so we’ll make a dummy commit"
 git commit --allow-empty -m "Initial dummy commit"
-git checkout -b indigo-devel
-git checkout -b jade-devel
-git checkout -b kinetic-devel
+git checkout -b indigo-devel-temporary-unique-name
+git checkout -b jade-devel-temporary-unique-name
+git checkout -b kinetic-devel-temporary-unique-name
 git branch -d master
 
 IGNORE_SUBFOLDERS="-I .git"
@@ -94,17 +94,20 @@ for ((i=0;i<NUM_REPOS;i++)); do
     # Add a remote for and fetch the old repo
     git remote add -f ${REPO_NAME} ${REPO_URL}
 
-    for ((i=0;i<NUM_BRANCHES;i++)); do
-        if [ "$NUM_BRANHCES" -eq "0" ]; then
-            git checkout kinetic-devel
-            REPO_BRANCH=${repo_branch_to_merge_kinetic[$i]}
-        # elif [ "$NUM_BRANHCES" -eq "1" ]; then
-            # git checkout jade-devel
-        #     REPO_BRANCH=${repo_branch_to_merge_jade[$i]}
+    for ((j=0;j<NUM_BRANCHES;j++)); do
+        if [ "$j" -eq "0" ]; then
+            git checkout kinetic-devel-temporary-unique-name
+            REPO_BRANCH=${repo_branch_to_merge_kinetic[$j]}
+        elif [ "$j" -eq "1" ]; then
+            git checkout jade-devel-temporary-unique-name
+            REPO_BRANCH=${repo_branch_to_merge_jade[$j]}
         else
-            git checkout indigo-devel
-            REPO_BRANCH=${repo_branch_to_merge_indigo[$i]}
+            git checkout indigo-devel-temporary-unique-name
+            REPO_BRANCH=${repo_branch_to_merge_indigo[$j]}
+        fi
+
         echo "Processing branch ${REPO_BRANCH}"
+        #read -p "wait" var1
 
         # Merge the remote repo
         git merge ${REPO_NAME}/${REPO_BRANCH} -m "Merging repo ${REPO_NAME} into main unified repo"
@@ -136,7 +139,7 @@ for ((i=0;i<NUM_REPOS;i++)); do
 
         # Commit the move
         git commit -m "Moved ${REPO_NAME} into subdirectory"
-    fi
+    done
 
     # Cleanup the temporary remote
     git remote remove ${REPO_NAME}
@@ -151,6 +154,11 @@ done
 
 git commit -a -m "Deleted duplicate gitignore and travis files"
 
+# Rename branches to normal
+git branch -m indigo-devel-temporary-unique-name indigo-devel
+git branch -m jade-devel-temporary-unique-name jade-devel
+git branch -m kinetic-devel-temporary-unique-name kinetic-devel
+
 # User feedback
 echo "Finished combining repos"
 echo "Showing second level contents of combined repos:"
@@ -159,8 +167,37 @@ tree -L 2
 # Get directory of moveit_merge
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-# Copy in README.md and .travis.yml from this repo's template folder
-cp $SCRIPT_DIR/template/.* $SCRIPT_DIR/template/* .
+# Copy in various files for every branch
+
+# Indigo
+git co indigo-devel
+cp $SCRIPT_DIR/template/README.md .
+sed -i 's/kinetic/indigo/g' README.md
+cp $SCRIPT_DIR/template/.travis.yml .
+sed -i 's/kinetic/indigo/g' .travis.yml
+cp $SCRIPT_DIR/template/indigo/moveit.rosinstall .
+cp $SCRIPT_DIR/template/.travis.run.sh .
+cp $SCRIPT_DIR/template/.gitignore
+git add -A && git commit -a -m "Added README, travis CI, and rosinstall file"
+
+# Jade
+git co jade-devel
+cp $SCRIPT_DIR/template/README.md .
+sed -i 's/kinetic/jade/g' README.md
+cp $SCRIPT_DIR/template/.travis.yml .
+sed -i 's/kinetic/jade/g' .travis.yml
+cp $SCRIPT_DIR/template/jade/moveit.rosinstall .
+cp $SCRIPT_DIR/template/.travis.run.sh .
+cp $SCRIPT_DIR/template/.gitignore
+git add -A && git commit -a -m "Added README, travis CI, and rosinstall file"
+
+# Kinetic
+git co jade-devel
+cp $SCRIPT_DIR/template/README.md .
+cp $SCRIPT_DIR/template/.travis.yml .
+cp $SCRIPT_DIR/template/kinetic/moveit.rosinstall .
+cp $SCRIPT_DIR/template/.travis.run.sh .
+cp $SCRIPT_DIR/template/.gitignore
 git add -A && git commit -a -m "Added README, travis CI, and rosinstall file"
 
 # Push to Github

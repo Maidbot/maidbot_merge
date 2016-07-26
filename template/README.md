@@ -4,9 +4,9 @@ The MoveIt! Motion Planning Framework
 
 This is the new unified repository for MoveIt! code. For more information about MoveIt! see [moveit.ros.org](moveit.ros.org).
 
-Travis - Continuous Integration | Coveralls - Coverage
-------------------------------- | --------------------
-[![Build Status](https://travis-ci.org/davetcoleman/moveit.svg)](https://travis-ci.org/davetcoleman/moveit) | [![Coverage Status](https://coveralls.io/repos/github/davetcoleman/moveit/badge.svg?branch=kinetic-devel)](https://coveralls.io/github/davetcoleman/moveit?branch=kinetic-devel)
+Travis - Continuous Integration |
+------------------------------- |
+[![Build Status](https://travis-ci.org/davetcoleman/moveit.svg)](https://travis-ci.org/davetcoleman/moveit)
 
 ROS Buildfarm | Jade Trusty Devel Source | AMD64 Jade Trusty Debian
 ------------- | ------------------- | -------------------
@@ -55,37 +55,16 @@ To build this package in a new workspace:
 
 ## Build with Docker in a Container
 
-A Docker container is available for testing in [moveit_docker](https://github.com/davetcoleman/moveit_docker)
+A Docker container is available for testing and running in [moveit_docker](https://github.com/davetcoleman/moveit_docker)
 
 ## Use Shadow Fixed to Build
 
-To build from source, first [switch to shadow fixed repo](https://github.com/ros-interactive-manipulation/tabletop_object_perception/issues/3) (this is for OMPL until next Kinetic release):
+To build from source, first switch to shadow fixed repo (this is for OMPL until next Kinetic release):
 
     emacs /etc/apt/sources.list.d/ros-latest.list
 
 Change ros to ros-shadow-fixed. Then run ``apt-get update``.
 
-## Latest MoveIt! Branches for Kinetic
-
-These are currently required to get Kinetic to build.
-
-Repo            | Latest Branch | Notes
---------------- | ------------- | -------------------
-core            | kinetic-devel |
-ros             | kinetic-devel    |
-msgs            | jade-devel    |
-planners        | kinetic-devel |
-plugins         | jade-devel	|
-commander       | jade-devel	|
-resources       | master		|
-setup_assistant | jade-devel	|
-docs            | kinetic-devel	|
-ikfast          | kinetic-devel	|
-experimental    | master     	|
-srdfdom         | indigo-devel	|
-warehouse_ros 	| jade-devel    |
-geometric_shapes  | kinetic-devel    |
-
 ## Contribute
 
-Please send PRs for new helper functions, fixes, etc!
+See the [Contribution](http://moveit.ros.org/documentation/contributing/) page.
