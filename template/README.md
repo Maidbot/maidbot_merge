@@ -2,11 +2,11 @@
 
 The MoveIt! Motion Planning Framework
 
-This is the new unified repository for MoveIt! code. For more information about MoveIt! see [moveit.ros.org](moveit.ros.org).
+This is the new EXPERIMENTAL unified repository for MoveIt! code. For more information about MoveIt! see [moveit.ros.org](moveit.ros.org).
 
 Travis - Continuous Integration |
 ------------------------------- |
-[![Build Status](https://travis-ci.org/davetcoleman/moveit.svg)](https://travis-ci.org/davetcoleman/moveit)
+[![Build Status](https://travis-ci.org/davetcoleman/moveit.svg?branch=kinetic-devel)](https://travis-ci.org/davetcoleman/moveit) |
 
 ROS Buildfarm | Jade Trusty Devel Source | AMD64 Jade Trusty Debian
 ------------- | ------------------- | -------------------
@@ -55,7 +55,7 @@ To build this package in a new workspace:
 
 ## Build with Docker in a Container
 
-A Docker container is available for testing and running in [moveit_docker](https://github.com/davetcoleman/moveit_docker)
+A Docker container is available for testing and running in [moveit_docker](https://github.com/ros-planning/moveit_docker)
 
 ## Use Shadow Fixed to Build
 

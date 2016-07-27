@@ -14,6 +14,8 @@ env:
   matrix:
     - ROS_DISTRO="kinetic"  ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu              UPSTREAM_WORKSPACE=moveit.rosinstall
     - ROS_DISTRO="kinetic"  ROS_REPOSITORY_PATH=http://packages.ros.org/ros-shadow-fixed/ubuntu UPSTREAM_WORKSPACE=moveit.rosinstall
+  allow_failures:
+    - env: ROS_DISTRO="kinetic"  ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu              UPSTREAM_WORKSPACE=moveit.rosinstall
 before_script:
   - git clone -q https://github.com/ros-planning/moveit_ci.git .moveit_ci
 script:
