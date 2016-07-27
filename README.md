@@ -10,6 +10,7 @@ All of the git history and the current three supported branches (indigo|jade|kin
  - https://github.com/ros-planning/moveit_commander
  - https://github.com/ros-planning/moveit_ikfast
  - https://github.com/ros-planning/moveit_resources
+ - https://github.com/ros-planning/moveit_experimental
 
 As of **Friday August 5th** (subject to be pushed back if necessary) these repos will be fully deprecated and all code changes / PRs should be created or moved to the single *moveit* repo.
 
@@ -18,6 +19,10 @@ The rational for this migration is further discussed on [Discourse](http://disco
 ## Merge Method
 
 We used a common ``git merge`` method that was loosely inspired by [this blog](https://saintgimp.org/2013/01/22/merging-two-git-repositories-into-one-repository-without-losing-file-history/) to preserve the git history of all repos. The automated merge script we used can be found [here](https://github.com/davetcoleman/moveit_merge/blob/master/git_merge_moveit.sh).
+
+Unfortuantly on Github we will not be able to see the git history for files - this is a limitation of Github and has been discussed online. In fact it is also a limitation of git - ``git`` has no actual file moving capabailites but intead detects changes automatically similar to refactoring a single file. Locally you can still see the history, however, using the ``--follow`` command e.g.:
+
+    git log --follow ./moveit/moveit_core/robot_state/src/robot_state.cpp
 
 ## Moving Forks Over
 
