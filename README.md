@@ -11,7 +11,7 @@ All of the git history and the current three supported branches (indigo|jade|kin
  - https://github.com/ros-planning/moveit_ikfast
  - https://github.com/ros-planning/moveit_resources
 
-As of **Friday August 5th** these repos will be fully deprecated and all code changes / PRs should be created or moved to the single *moveit* repo.
+As of **Friday August 5th** (subject to be pushed back if necessary) these repos will be fully deprecated and all code changes / PRs should be created or moved to the single *moveit* repo.
 
 The rational for this migration is further discussed on [Discourse](http://discourse.ros.org/t/migration-to-one-github-repo-for-moveit/266).
 
