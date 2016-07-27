@@ -54,24 +54,24 @@ git branch -d master
 
 # All repos must have unique branches for I/J/K so we clone them and make unique branches
 # Currently *_resources and *_experiemental do not
-# git clone http://github.com/ros-planning/moveit_resources.git
-# cd moveit_resources
-# hub remote add davetcoleman
-# git co -b indigo-devel
-# git co -b jade-devel
-# git co -b kinetic-devel
-# git push davetcoleman --all -f
-# cd ..
+git clone http://github.com/ros-planning/moveit_resources.git
+cd moveit_resources
+hub remote add davetcoleman
+git co -b indigo-devel
+git co -b jade-devel
+git co -b kinetic-devel
+git push davetcoleman --all -f
+cd ..
 
-# git clone http://github.com/ros-planning/moveit_experimental.git
-# cd moveit_experimental
-# hub remote add davetcoleman
-# git co -b indigo-devel
-# git co -b jade-devel
-# git co -b kinetic-devel
-# git push davetcoleman --all -f
-# cd ..
-# rm -rf moveit_resources moveit_experimental
+git clone http://github.com/ros-planning/moveit_experimental.git
+cd moveit_experimental
+hub remote add davetcoleman
+git co -b indigo-devel
+git co -b jade-devel
+git co -b kinetic-devel
+git push davetcoleman --all -f
+cd ..
+rm -rf moveit_resources moveit_experimental
 
 function errorFunc() {
     echo "Error occurred, aborting"
