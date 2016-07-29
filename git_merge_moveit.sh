@@ -43,7 +43,7 @@ set -x          # activate debugging from here
 
 echo "Create the new repository"
 git init .
-git remote add origin http://github.com/davetcoleman/moveit.git
+git remote add origin http://github.com/ros-planning/moveit.git
 
 echo "Before we do a merge, we have to have an initial commit, so we’ll make a dummy commit"
 git commit --allow-empty -m "Initial dummy commit"
