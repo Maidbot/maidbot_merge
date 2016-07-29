@@ -20,7 +20,7 @@ The rational for this migration is further discussed on [Discourse](http://disco
 
 We used a common ``git merge`` method that was loosely inspired by [this blog](https://saintgimp.org/2013/01/22/merging-two-git-repositories-into-one-repository-without-losing-file-history/) to preserve the git history of all repos. The automated merge script we used can be found [here](https://github.com/davetcoleman/moveit_merge/blob/master/git_merge_moveit.sh).
 
-Unfortunately on Github we will not be able to see the git history for files - this is a limitation of Github and has been discussed online. In fact it is also a limitation of git - ``git`` has no actual file moving capabailites but intead detects changes automatically similar to refactoring a single file. Locally you can still see the history, however, using the ``--follow`` command e.g.:
+Unfortunately on Github we will not be able to see the git history for files - this is a limitation of Github and has been discussed online. In fact it is also a limitation of git - ``git`` has no actual file moving capabailites but instead detects changes automatically similar to refactoring a single file. Locally you can still see the history, however, using the ``--follow`` command e.g.:
 
     git log --follow ./moveit/moveit_core/robot_state/src/robot_state.cpp
 
@@ -36,7 +36,7 @@ We would like to start opening all new issues on the new repo, and old ones shou
 
 ## Releasing Debians
 
-Future releasing of indgo|jade|kinetic we be from this new unified repo.
+Future releasing of indgo|jade|kinetic will be from this new unified repo.
 
 ## Large Dependency Chains
 
