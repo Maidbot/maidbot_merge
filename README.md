@@ -2,9 +2,9 @@
 
 ## Introduction
 
-In an effort to reduce the friction in maintaining and improving the MoveIt! code base, we are planning on consolidating 9 of our current Github repositories into one [master repo](https://github.com/ros-planning/moveit). The rational for this has been discussed on [Discourse](http://discourse.ros.org/t/migration-to-one-github-repo-for-moveit/266). We are targeting this consolidation for **Friday August 5th**.
+In an effort to reduce the friction in maintaining and improving the MoveIt! code base, we are planning on consolidating 9 of our current Github repositories into one [master repo](https://github.com/ros-planning/moveit). The rational for this has been discussed on [Discourse](http://discourse.ros.org/t/migration-to-one-github-repo-for-moveit/266). We are targeting this consolidation for **7am Pacific, Friday August 5th** (subject to be pushed back if necessary) when these repos will be fully deprecated and all code changes / PRs should be created or moved to the new consolidated repo.
 
-In the repository we describe all about the merging process, and also provide a script that semi-automates the merge process and maintains the best consistency between old and new repos.
+In this repository we describe the planned merging process, and also provide a script that automates the merge process to maintain the best consistency between old and new repos.
 
 ## Repositories to be merged
 
@@ -19,10 +19,6 @@ All of the git history and the current three supported branches (indigo|jade|kin
  - https://github.com/ros-planning/moveit_ikfast
  - https://github.com/ros-planning/moveit_resources
  - https://github.com/ros-planning/moveit_experimental
-
-As of **7am Pacific, Friday August 5th** (subject to be pushed back if necessary) these repos will be fully deprecated and all code changes / PRs should be created or moved to the single *moveit* repo.
-
-The rational for this migration is further discussed on [Discourse](http://discourse.ros.org/t/migration-to-one-github-repo-for-moveit/266).
 
 ## Developers: HOW YOU CAN HELP US
 
@@ -55,15 +51,15 @@ We would like to start opening all new issues on the new repo, and old ones shou
 
 Future releasing of indgo|jade|kinetic will be made from the new unified repo [https://github.com/ros-planning/moveit](https://github.com/ros-planning/moveit).
 Necessary steps after the merge:
-- Update `rosdistro` files to remove merged packages. The new `moveit` package can be added via [bloom](http://wiki.ros.org/bloom) thus no need to be added manually.
-- Create a release repository (preferrably become `https://github.com/ros-gbp/moveit-release` to maintain the tradition).
-- Make a new release by following [Releasing a Package for the First Time](http://wiki.ros.org/bloom/Tutorials/FirstTimeRelease). 
+- Update `rosdistro` files to remove merged packages. The new `moveit` package can be added via [bloom](http://wiki.ros.org/bloom) thus there is no need to add it manually.
+- Create a release repository (preferrably `https://github.com/ros-gbp/moveit-release` to maintain consistency).
+- Make a new release by following [Releasing a Package for the First Time](http://wiki.ros.org/bloom/Tutorials/FirstTimeRelease).
 - Before the public sync of debs, call for testing from shadow-fixed repo.
 
 ## Tags/Releases
 
 We will not be migrating the old git tags / releases to the unified repo due to the difficulty of doing so. See also "Old Repositories".
-Tag for the new repo will be manually decided among maintainers, based on the packages in the old repos.
+The version number tag for the new repo will be decided among maintainers, based on the packages in the old repos.
 
 ## Old Repositories
 
