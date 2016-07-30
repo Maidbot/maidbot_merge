@@ -45,11 +45,17 @@ We would like to start opening all new issues on the new repo, and old ones shou
 
 ## Releasing Debians
 
-Future releasing of indgo|jade|kinetic will be from this new unified repo.
+Future releasing of indgo|jade|kinetic will be made from the new unified repo [https://github.com/ros-planning/moveit](https://github.com/ros-planning/moveit).
+Necessary steps after the merge:
+- Update `rosdistro` files to remove merged packages. The new `moveit` package can be added via [bloom](http://wiki.ros.org/bloom) thus no need to be added manually.
+- Create a release repository (preferrably become `https://github.com/ros-gbp/moveit-release` to maintain the tradition).
+- Make a new release by following [Releasing a Package for the First Time](http://wiki.ros.org/bloom/Tutorials/FirstTimeRelease). 
+- Before the public sync of debs, call for testing from shadow-fixed repo.
 
 ## Tags/Releases
 
-We will not be migrating the old git tags / releases to the unified repo due to the difficulty of doing so. See also "Old Repositories"
+We will not be migrating the old git tags / releases to the unified repo due to the difficulty of doing so. See also "Old Repositories".
+Tag for the new repo will be manually decided among maintainers, based on the packages in the old repos.
 
 ## Old Repositories
 
