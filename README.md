@@ -56,6 +56,10 @@ Necessary steps after the merge:
 - Make a new release by following [Releasing a Package for the First Time](http://wiki.ros.org/bloom/Tutorials/FirstTimeRelease).
 - Before the public sync of debs, call for testing from shadow-fixed repo.
 
+## MoveIt!'s Metapackage
+
+Previously MoveIt! had a metapackage called ``moveit_full`` in Indigo and earlier. After the repo consolidation this package will be instead called simply ``moveit`` to match the new repo name. Several new packages will be added to this metapackage, based on what is in the merged repo. In Indigo ``moveit_full`` will remain unchanged for backwards compatibility, but a second metapackage ``moveit`` will also exist.
+
 ## Tags/Releases
 
 We will not be migrating the old git tags / releases to the unified repo due to the difficulty of doing so. See also "Old Repositories".
