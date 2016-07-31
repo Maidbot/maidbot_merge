@@ -2,7 +2,9 @@
 
 The MoveIt! Motion Planning Framework
 
-This is the new EXPERIMENTAL unified repository for MoveIt! code. For more information about MoveIt! see [moveit.ros.org](moveit.ros.org).
+This is the new EXPERIMENTAL unified repository for MoveIt! code. See the [Migration Notes](https://github.com/davetcoleman/moveit_merge/) to learn about the repo consolidation.
+
+For more information about MoveIt! see [moveit.ros.org](moveit.ros.org).
 
 Travis - Continuous Integration |
 ------------------------------- |
@@ -28,10 +30,6 @@ moveit_plugins | [![Build Status](http://build.ros.org/buildStatus/icon?job=Jsrc
 moveit_ikfast | [![Build Status](http://build.ros.org/buildStatus/icon?job=Jsrc_uT__moveit_ikfast__ubuntu_trusty__source)](http://build.ros.org/view/Jsrc_uT/job/Jsrc_uT__moveit_ikfast__ubuntu_trusty__source/) | [![Build Status](http://build.ros.org/buildStatus/icon?job=Jbin_uT64__moveit_ikfast__ubuntu_trusty_amd64__binary)](http://build.ros.org/view/Jbin_uT64/job/Jbin_uT64__moveit_ikfast__ubuntu_trusty_amd64__binary/)
 moveit_commander | [![Build Status](http://build.ros.org/buildStatus/icon?job=Jsrc_uT__moveit_commander__ubuntu_trusty__source)](http://build.ros.org/view/Jsrc_uT/job/Jsrc_uT__moveit_commander__ubuntu_trusty__source/) | [![Build Status](http://build.ros.org/buildStatus/icon?job=Jbin_uT64__moveit_commander__ubuntu_trusty_amd64__binary)](http://build.ros.org/view/Jbin_uT64/job/Jbin_uT64__moveit_commander__ubuntu_trusty_amd64__binary/)
 
-## About The Merged Repos
-
-The automated script for merging repos is located [here](https://github.com/davetcoleman/moveit_merge/tree/master). To copy your code changes on your own machine into the same unified structure, simply copy the previously separated packages as subfolders in this new unified repository.
-
 ## Install
 
 ### Ubuntu Debian
@@ -42,29 +40,41 @@ The automated script for merging repos is located [here](https://github.com/dave
 
 ### Build from Source
 
-To build this package in a new workspace:
+Prerequisites: [ROS Kinetic](http://wiki.ros.org/kinetic/Installation), [wstool](http://wiki.ros.org/wstool), and [catkin_tools](https://catkin-tools.readthedocs.io/en/latest/):
+
+    sudo apt-get install python-wstool python-catkin-tools
+
+Optionally create a new workspace:
 
     mkdir -p ws_moveit/src
     cd ws_moveit/src
     wstool init .
+
+The Kinetic MoveIt! branch currently requires using the ROS ``shadow-fixed`` repositories:
+
+    sudo echo 'deb http://packages.ros.org/ros-shadow-fixed/ubuntu xenial main' > /etc/apt/sources.list.d/ros-latest.list
+    sudo apt-get update
+
+FCL is currently not properly released into Kinetic, instead use this temporary debian:
+
+    wget https://raw.githubusercontent.com/ros-planning/moveit/kinetic-devel/.travis.before_script
+    source .travis.before_script # Temporary install method for FCL before it is released properly
+
+Pull down required repositories and build:
+
     wstool merge https://raw.githubusercontent.com/ros-planning/moveit/kinetic-devel/moveit.rosinstall
     wstool update
     rosdep install --from-paths . --ignore-src --rosdistro kinetic
     cd ..
+    catkin config --extend /opt/ros/kinetic --install --cmake-args -DCMAKE_BUILD_TYPE=Release
     catkin build
 
-## Build with Docker in a Container
+## Run or Build with Docker in a Container
 
-A Docker container is available for testing and running in [moveit_docker](https://github.com/ros-planning/moveit_docker)
+A Docker container is available for testing and running in [moveit_docker](https://github.com/ros-planning/moveit_docker). For example:
 
-## Use Shadow Fixed to Build
+    docker run -it moveit/moveit_docker:moveit-kinetic-source
 
-To build from source, first switch to shadow fixed repo (this is for OMPL until next Kinetic release):
+## Get Involved
 
-    emacs /etc/apt/sources.list.d/ros-latest.list
-
-Change ros to ros-shadow-fixed. Then run ``apt-get update``.
-
-## Contribute
-
-See the [Contribution](http://moveit.ros.org/documentation/contributing/) page.
+See the [Contributing](http://moveit.ros.org/documentation/contributing/) page.
