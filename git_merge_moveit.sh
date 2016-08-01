@@ -149,33 +149,29 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Indigo
 git co indigo-devel  || errorFunc
-cp $SCRIPT_DIR/template/README.md .
-sed -i 's/kinetic/indigo/g' README.md
-cp $SCRIPT_DIR/template/.travis.yml .
-sed -i 's/kinetic/indigo/g' .travis.yml
-cp $SCRIPT_DIR/template/indigo/moveit.rosinstall .
-cp $SCRIPT_DIR/template/.travis.run.sh .
-cp $SCRIPT_DIR/template/.gitignore
+cp $SCRIPT_DIR/template/README.md .  || errorFunc
+sed -i 's/kinetic/indigo/g' README.md  || errorFunc
+cp $SCRIPT_DIR/template/indigo/.travis.yml .  || errorFunc
+cp $SCRIPT_DIR/template/indigo/moveit.rosinstall .  || errorFunc
+cp $SCRIPT_DIR/template/.gitignore  || errorFunc
 git add -A && git commit -a -m "Added README, travis CI, and rosinstall file" || errorFunc
 
 # Jade
 git co jade-devel || errorFunc
-cp $SCRIPT_DIR/template/README.md .
-sed -i 's/kinetic/jade/g' README.md
-cp $SCRIPT_DIR/template/.travis.yml .
-sed -i 's/kinetic/jade/g' .travis.yml
-cp $SCRIPT_DIR/template/jade/moveit.rosinstall .
-cp $SCRIPT_DIR/template/.travis.run.sh .
-cp $SCRIPT_DIR/template/.gitignore
+cp $SCRIPT_DIR/template/README.md .  || errorFunc
+sed -i 's/kinetic/jade/g' README.md  || errorFunc
+cp $SCRIPT_DIR/template/jade/.travis.yml .  || errorFunc
+cp $SCRIPT_DIR/template/jade/moveit.rosinstall .  || errorFunc
+cp $SCRIPT_DIR/template/.gitignore  || errorFunc
 git add -A && git commit -a -m "Added README, travis CI, and rosinstall file" || errorFunc
 
 # Kinetic
 git co kinetic-devel || errorFunc
-cp $SCRIPT_DIR/template/README.md .
-cp $SCRIPT_DIR/template/.travis.yml .
-cp $SCRIPT_DIR/template/kinetic/moveit.rosinstall .
-cp $SCRIPT_DIR/template/.travis.run.sh .
-cp $SCRIPT_DIR/template/.gitignore
+cp $SCRIPT_DIR/template/README.md .  || errorFunc
+cp $SCRIPT_DIR/template/kinetic/.travis.yml .  || errorFunc
+cp $SCRIPT_DIR/template/kinetic/.travis.before_script .  || errorFunc
+cp $SCRIPT_DIR/template/kinetic/moveit.rosinstall . || errorFunc
+cp $SCRIPT_DIR/template/.gitignore  || errorFunc
 git add -A && git commit -a -m "Added README, travis CI, and rosinstall file" || errorFunc
 
 set +x          # stop debugging from here
@@ -217,4 +213,4 @@ echo "Showing second level contents of combined repos:"
 tree -L 2
 
 # Push to Github
-#git push origin kinetic-devel -f
+#git push origin --all -f
