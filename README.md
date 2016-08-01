@@ -9,7 +9,6 @@ All of the git history and the current three supported branches (indigo|jade|kin
  - https://github.com/ros-planning/moveit_setup_assistant
  - https://github.com/ros-planning/moveit_commander
  - https://github.com/ros-planning/moveit_ikfast
- - https://github.com/ros-planning/moveit_resources
  - https://github.com/ros-planning/moveit_experimental
 
 As of **7am Pacific, Friday August 5th** (subject to be pushed back if necessary) these repos will be fully deprecated and all code changes / PRs should be created or moved to the single *moveit* repo.

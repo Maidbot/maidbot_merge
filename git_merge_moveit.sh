@@ -5,7 +5,7 @@ echo "Automated MoveIt! Repo Merging Script"
 echo " by davetcoleman"
 echo " inspired by: https://saintgimp.org/2013/01/22/merging-two-git-repositories-into-one-repository-without-losing-file-history/"
 echo " Discussion: http://discourse.ros.org/t/migration-to-one-github-repo-for-moveit/266"
-echo " Requres all repos have kinetic/jade/indigo-devel branches, except *_resources and *_experiemental"
+echo " Requres all repos have kinetic/jade/indigo-devel branches, except *_experiemental"
 echo "---------------------------------------"
 echo ""
 
@@ -20,7 +20,6 @@ export repo_names_to_merge=(
     moveit_plugins
     moveit_setup_assistant
     moveit_commander
-    moveit_resources
     moveit_experimental
 )
 export repo_ssh_to_merge=(
@@ -31,7 +30,6 @@ export repo_ssh_to_merge=(
     http://github.com/ros-planning/moveit_plugins.git
     http://github.com/ros-planning/moveit_setup_assistant.git
     http://github.com/ros-planning/moveit_commander.git
-    http://github.com/davetcoleman/moveit_resources.git
     http://github.com/davetcoleman/moveit_experimental.git
 )
 
@@ -53,15 +51,7 @@ git checkout -b kinetic-devel-temporary-unique-name
 git branch -d master
 
 # All repos must have unique branches for I/J/K so we clone them and make unique branches
-# Currently *_resources and *_experiemental do not
-git clone http://github.com/ros-planning/moveit_resources.git
-cd moveit_resources
-hub remote add davetcoleman
-git co -b indigo-devel
-git co -b jade-devel
-git co -b kinetic-devel
-git push davetcoleman --all -f
-cd ..
+# Currently *_experiemental does not
 
 git clone http://github.com/ros-planning/moveit_experimental.git
 cd moveit_experimental
@@ -71,7 +61,7 @@ git co -b jade-devel
 git co -b kinetic-devel
 git push davetcoleman --all -f
 cd ..
-rm -rf moveit_resources moveit_experimental
+rm -rf moveit_experimental
 
 function errorFunc() {
     echo "Error occurred, aborting"
