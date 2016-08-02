@@ -47,7 +47,7 @@ def template_file(src, dst, subs):
     with open(src, 'r') as f:
         data = f.read()
     for k, v in subs.items():
-        data.replace(k, v)
+        data = data.replace(k, v)
     with open(dst, 'w+') as f:
         f.write(data)
 
@@ -115,7 +115,7 @@ def main(sysargv=None):
             os.path.join('README.md'),
             {
                 '__DISTRO__': distro,
-                '__DISTRO_CAP__': distro.capitalize(),
+                '__DISTRO_CAPS__': distro.capitalize(),
             }
         )
         copy_file(os.path.join(template_dir, '.gitignore'), '.')
