@@ -11,12 +11,12 @@ import time
 
 repos_to_merge = OrderedDict([
     ('moveit_commander', 'http://github.com/ros-planning/moveit_commander.git'),
-    # ('moveit_core', 'http://github.com/ros-planning/moveit_core.git'),
-    # ('moveit_ros', 'http://github.com/ros-planning/moveit_ros.git'),
-    # ('moveit_planners', 'http://github.com/ros-planning/moveit_planners.git'),
-    # ('moveit_ikfast', 'http://github.com/ros-planning/moveit_ikfast.git'),
-    # ('moveit_plugins', 'http://github.com/ros-planning/moveit_plugins.git'),
-    # ('moveit_setup_assistant', 'http://github.com/ros-planning/moveit_setup_assistant.git'),
+    ('moveit_core', 'http://github.com/ros-planning/moveit_core.git'),
+    ('moveit_ros', 'http://github.com/ros-planning/moveit_ros.git'),
+    ('moveit_planners', 'http://github.com/ros-planning/moveit_planners.git'),
+    ('moveit_ikfast', 'http://github.com/ros-planning/moveit_ikfast.git'),
+    ('moveit_plugins', 'http://github.com/ros-planning/moveit_plugins.git'),
+    ('moveit_setup_assistant', 'http://github.com/ros-planning/moveit_setup_assistant.git'),
     ('moveit_experimental', None),  # Set later when the repository is setup with branches.
 ])
 
@@ -38,12 +38,12 @@ def call(cmd, *args, **kwargs):
 
 
 def copy_file(src, dst):
-    print("++ Copying '{0}'".format(os.path.relpath(src)))
+    print("++ Copying '{0}'".format(src))
     shutil.copy(src, dst)
 
 
 def template_file(src, dst, subs):
-    print("++ Templating '{0}'".format(os.path.relpath(src)))
+    print("++ Templating '{0}'".format(src))
     with open(src, 'r') as f:
         data = f.read()
     for k, v in subs.items():
@@ -84,12 +84,13 @@ def main(sysargv=None):
     for branch, distro in branches_to_merge.items():
         print("\n==> Preparing branch '{0}'".format(branch))
         call(['git', 'checkout', '-b', branch, 'master'])
+        call(['git', 'tag', branch + '/initial'])
 
         print("\n==> Merging imported branches for branch '{0}'".format(branch))
         for repo, addr in repos_to_merge.items():
             print("==> Processing '{0}' branch from the '{1}' repository".format(branch, repo))
             temp_branch = 'temp' + '/' + repo + '/' + branch
-            call(['git', 'checkout', '-b', temp_branch, branch])
+            call(['git', 'checkout', '-b', temp_branch, branch + '/initial'])
             call(['git', 'pull', addr, branch, '--allow-unrelated-histories', '--no-edit'])
             call(['git', 'filter-branch', '-f',
                   '--tree-filter',
@@ -127,7 +128,8 @@ def main(sysargv=None):
                     continue
                 copy_file(os.path.join(template_dir, distro, file), '.')
         call(['git', 'add', '.'])
-        call(['git', 'commit', '-m', 'initial commit before merging repositories'])
+        call(['git', 'commit', '-m', 'adding new README.md and .gitignore'])
+        call(['git', 'tag', '-d', branch + '/initial'])
 
     print("Repository complete.")
     print("Add a remote and push the branches like this:")
