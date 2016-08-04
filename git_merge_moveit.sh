@@ -153,7 +153,7 @@ cp $SCRIPT_DIR/template/README.md .  || errorFunc
 sed -i 's/kinetic/indigo/g' README.md  || errorFunc
 cp $SCRIPT_DIR/template/indigo/.travis.yml .  || errorFunc
 cp $SCRIPT_DIR/template/indigo/moveit.rosinstall .  || errorFunc
-cp $SCRIPT_DIR/template/.gitignore  || errorFunc
+cp $SCRIPT_DIR/template/.gitignore . || errorFunc
 git add -A && git commit -a -m "Added README, travis CI, and rosinstall file" || errorFunc
 
 # Jade
@@ -162,7 +162,7 @@ cp $SCRIPT_DIR/template/README.md .  || errorFunc
 sed -i 's/kinetic/jade/g' README.md  || errorFunc
 cp $SCRIPT_DIR/template/jade/.travis.yml .  || errorFunc
 cp $SCRIPT_DIR/template/jade/moveit.rosinstall .  || errorFunc
-cp $SCRIPT_DIR/template/.gitignore  || errorFunc
+cp $SCRIPT_DIR/template/.gitignore .  || errorFunc
 git add -A && git commit -a -m "Added README, travis CI, and rosinstall file" || errorFunc
 
 # Kinetic
@@ -171,7 +171,7 @@ cp $SCRIPT_DIR/template/README.md .  || errorFunc
 cp $SCRIPT_DIR/template/kinetic/.travis.yml .  || errorFunc
 cp $SCRIPT_DIR/template/kinetic/.travis.before_script .  || errorFunc
 cp $SCRIPT_DIR/template/kinetic/moveit.rosinstall . || errorFunc
-cp $SCRIPT_DIR/template/.gitignore  || errorFunc
+cp $SCRIPT_DIR/template/.gitignore . || errorFunc
 git add -A && git commit -a -m "Added README, travis CI, and rosinstall file" || errorFunc
 
 set +x          # stop debugging from here
