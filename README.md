@@ -28,19 +28,15 @@ All of the git history and the current three supported branches (indigo|jade|kin
 
 ## Merge Method
 
-> Note: the following section is subject to change. See [alternate method](http://discourse.ros.org/t/migration-to-one-github-repo-for-moveit/266/22)
-
-We used a common ``git merge`` method that was loosely inspired by [this blog](https://saintgimp.org/2013/01/22/merging-two-git-repositories-into-one-repository-without-losing-file-history/) to preserve the git history of all repos. The automated merge script we used can be found [here](https://github.com/davetcoleman/moveit_merge/blob/master/git_merge_moveit.sh).
-
-Unfortunately on Github we will not be able to see the git history for files - this is a limitation of Github and has been discussed online. In fact it is also a limitation of git - ``git`` has no actual file moving capabailites but instead detects changes automatically similar to refactoring a single file. Locally you can still see the history, however, using the ``--follow`` command e.g.:
-
-    git log --follow ./moveit/moveit_core/robot_state/src/robot_state.cpp
+In order to preserve the appearance of file histories in Github, we are using the ``git filter-branch`` method to re-write the git histories of all past commits so that they appear to have always existed in their new subfolder. The downside of this approach is that all commit hashes will change (because each commit was rewritten to have all content in a subfolder). The automated merge script written by @wjwwood and @davetcoleman can be found [here](https://github.com/davetcoleman/moveit_merge/blob/master/git_rewrite_merge_moveit.py).
 
 ## Migrating Forks
 
 Many MoveIt! users likely have their own forks with modifications living in their code bases - we want to encourage those users to make the migration with us to a unified repo. To make this easy for developers, we've maintained the old repo folder / package structure so that you can in theory just copy a folder over into the new git repo and do a ``commit``. Before making the copy though we recommend you ``pull`` \ ``rebase`` your old repo to the latest changes on the parent deprecated repository. This way there will the a minimum number of potential conflicts you have to sort through when syncing with the new merged ``moveit`` repo.
 
 In the future we are interested in flattening out some of the subfolders - i.e. "moveit/moveit_ros/planning" could become "moveit/moveit_ros_planning" since this better represents the package name. But this is not part of the initial migration.
+
+Note: will the first person who uses patch sets to migrate old pull requests to the new repo please document it here. If you come up with other methods for migrating besides copying your package, please share here also.
 
 ## Migrating Issues
 
