@@ -102,7 +102,7 @@ def main(sysargv=None):
 
             call(['git', 'filter-branch', '-f',
                   '--tree-filter',
-                  'mkdir -p {0}; test "$(ls -A | grep -v {0})" && mv $(ls -A | grep -v {0}) {0} || true'
+                  'mkdir -p __tmp; test "$(ls -A | grep -v __tmp)" && mv $(ls -A | grep -v __tmp) __tmp && mv __tmp {0} || true'
                   .format(repo), 'HEAD'])
             print("==> Merging '{0}' branch from the '{1}' repository".format(branch, repo))
             call(['git', 'checkout', branch])
