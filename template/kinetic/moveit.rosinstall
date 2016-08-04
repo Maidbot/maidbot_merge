@@ -1,4 +1,4 @@
-# This file is primarilly intended for the users who want to build MoveIt! from source.
+# This file is intended for users who want to build MoveIt! from source.
 # Used with wstool, users can download source of all packages of MoveIt!.
 - git:
     local-name: moveit

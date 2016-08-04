@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In an effort to reduce the friction in maintaining and improving the MoveIt! code base, we are planning on consolidating 9 of our current Github repositories into one [master repo](https://github.com/ros-planning/moveit). The rational for this has been discussed on [Discourse](http://discourse.ros.org/t/migration-to-one-github-repo-for-moveit/266). We are targeting this consolidation for **7am Pacific, Friday August 5th** (subject to be pushed back if necessary) when these repos will be fully deprecated and all code changes / PRs should be created or moved to the new consolidated repo.
+In an effort to reduce the friction in maintaining and improving the MoveIt! code base, we are planning on consolidating 8 of our current Github repositories into one [master repo](https://github.com/ros-planning/moveit). The rational for this has been discussed on [Discourse](http://discourse.ros.org/t/migration-to-one-github-repo-for-moveit/266). We are targeting this consolidation for **7am Pacific, Friday August 5th** (subject to be pushed back if necessary) when these repos will be fully deprecated and all code changes / PRs should be created or moved to the new consolidated repo.
 
 In this repository we describe the planned merging process, and also provide a script that automates the merge process to maintain the best consistency between old and new repos.
 
@@ -17,7 +17,6 @@ All of the git history and the current three supported branches (indigo|jade|kin
  - https://github.com/ros-planning/moveit_setup_assistant
  - https://github.com/ros-planning/moveit_commander
  - https://github.com/ros-planning/moveit_ikfast
- - https://github.com/ros-planning/moveit_resources
  - https://github.com/ros-planning/moveit_experimental
 
 ## Developers: HOW YOU CAN HELP US
