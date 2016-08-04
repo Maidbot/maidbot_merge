@@ -9,6 +9,9 @@ import sys
 import subprocess
 import time
 
+# Set git version for compatibility
+git_pre_274 = True # Set True for Ubuntu 16.04, False for William/OSX
+
 repos_to_merge = OrderedDict([
     ('moveit_commander', 'http://github.com/ros-planning/moveit_commander.git'),
     ('moveit_core', 'http://github.com/ros-planning/moveit_core.git'),
@@ -30,7 +33,6 @@ repo_dst = 'moveit'
 
 this_dir = os.path.dirname(os.path.abspath(__file__))
 template_dir = os.path.join(this_dir, 'template')
-
 
 def call(cmd, *args, **kwargs):
     print("++ {0}".format(' '.join([c if ' ' not in c else "'{0}'".format(c) for c in cmd])))
@@ -91,14 +93,26 @@ def main(sysargv=None):
             print("==> Processing '{0}' branch from the '{1}' repository".format(branch, repo))
             temp_branch = 'temp' + '/' + repo + '/' + branch
             call(['git', 'checkout', '-b', temp_branch, branch + '/initial'])
-            call(['git', 'pull', addr, branch, '--allow-unrelated-histories', '--no-edit'])
+
+            # For pre 2.7.4
+            if git_pre_274:
+                call(['git', 'pull', addr, branch, '--no-edit'])
+            else:
+                call(['git', 'pull', addr, branch, '--allow-unrelated-histories', '--no-edit'])
+
             call(['git', 'filter-branch', '-f',
                   '--tree-filter',
                   'mkdir -p {0}; test "$(ls -A | grep -v {0})" && mv $(ls -A | grep -v {0}) {0} || true'
                   .format(repo), 'HEAD'])
             print("==> Merging '{0}' branch from the '{1}' repository".format(branch, repo))
             call(['git', 'checkout', branch])
-            call(['git', 'merge', temp_branch, '--allow-unrelated-histories', '--no-edit'])
+
+            # For pre 2.7.4
+            if git_pre_274:
+                call(['git', 'merge', temp_branch, '--no-edit'])
+            else:
+                call(['git', 'merge', temp_branch, '--allow-unrelated-histories', '--no-edit'])
+
             call(['git', 'branch', '-d', temp_branch])
             trashed_files = False
             if os.path.isfile(os.path.join(repo, '.gitignore')):
@@ -111,20 +125,23 @@ def main(sysargv=None):
                 call(['git', 'commit', '-m', 'removing vestigial files after merging'])
 
         print("\n==> Adding new README.md and .gitignore for branch '{0}'".format(branch))
-        template_file(
-            os.path.join(template_dir, 'README.md')
-        )
+
+        copy_file(os.path.join(template_dir, 'README.md'), '.')
         copy_file(os.path.join(template_dir, '.gitignore'), '.')
         if os.path.isdir(os.path.join(template_dir, distro)):
             for file in os.listdir(os.path.join(template_dir, distro)):
-                if not os.path.isfile(file):
-                    print("Warning! skipping non-file '{0}'".format(file),
+                file_path = os.path.join(template_dir, distro, file)
+                if not os.path.isfile(file_path):
+                    print("Warning! skipping non-file '{0}'".format(file_path),
                           file=sys.stderr)
                     continue
-                copy_file(os.path.join(template_dir, distro, file), '.')
+                copy_file(file_path, '.')
         call(['git', 'add', '.'])
         call(['git', 'commit', '-m', 'adding new README.md and .gitignore'])
         call(['git', 'tag', '-d', branch + '/initial'])
+
+    # Remove master branch
+    call(['git', 'branch', '-d', 'master'])
 
     print("Repository complete.")
     print("Add a remote and push the branches like this:")
