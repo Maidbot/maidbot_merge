@@ -9,6 +9,10 @@
     uri: https://github.com/ros-planning/moveit_msgs.git
     version: jade-devel
 - git:
+    local-name: moveit_resources
+    uri: https://github.com/ros-planning/moveit_resources.git
+    version: master
+- git:
     local-name: warehouse_ros
     uri: https://github.com/ros-planning/warehouse_ros.git
     version: jade-devel
