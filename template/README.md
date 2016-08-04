@@ -32,48 +32,15 @@ moveit_commander | [![Build Status](http://build.ros.org/buildStatus/icon?job=Js
 
 ## Install
 
-### Ubuntu Debian
+See [Installation Instructions](http://moveit.ros.org/install/).
 
-> Note: this package has not been released yet
+## Docker
 
-    sudo apt-get install ros-kinetic-moveit
+A Docker container is available for testing and running in [moveit_docker](https://github.com/ros-planning/moveit_docker).
 
-### Build from Source
+## Documentation
 
-Prerequisites: [ROS Kinetic](http://wiki.ros.org/kinetic/Installation), [wstool](http://wiki.ros.org/wstool), and [catkin_tools](https://catkin-tools.readthedocs.io/en/latest/):
-
-    sudo apt-get install python-wstool python-catkin-tools
-
-Optionally create a new workspace:
-
-    mkdir -p ws_moveit/src
-    cd ws_moveit/src
-    wstool init .
-
-The Kinetic MoveIt! branch currently requires using the ROS ``shadow-fixed`` repositories:
-
-    sudo echo 'deb http://packages.ros.org/ros-shadow-fixed/ubuntu xenial main' > /etc/apt/sources.list.d/ros-latest.list
-    sudo apt-get update
-
-FCL is currently not properly released into Kinetic, instead use this temporary debian:
-
-    wget https://raw.githubusercontent.com/ros-planning/moveit/kinetic-devel/.travis.before_script
-    source .travis.before_script # Temporary install method for FCL before it is released properly
-
-Pull down required repositories and build:
-
-    wstool merge https://raw.githubusercontent.com/ros-planning/moveit/kinetic-devel/moveit.rosinstall
-    wstool update
-    rosdep install --from-paths . --ignore-src --rosdistro kinetic
-    cd ..
-    catkin config --extend /opt/ros/kinetic --install --cmake-args -DCMAKE_BUILD_TYPE=Release
-    catkin build
-
-## Run or Build with Docker in a Container
-
-A Docker container is available for testing and running in [moveit_docker](https://github.com/ros-planning/moveit_docker). For example:
-
-    docker run -it moveit/moveit_docker:moveit-kinetic-source
+See [Documentation](http://moveit.ros.org/documentation/)
 
 ## Get Involved
 
