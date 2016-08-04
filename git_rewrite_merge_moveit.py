@@ -80,7 +80,7 @@ def main(sysargv=None):
     os.makedirs(repo_dst)
     os.chdir(repo_dst)
     call(['git', 'init', '.'])
-    call(['git', 'commit', '-m', 'initial commit before merging branches', '--allow-empty'])
+    call(['git', 'commit', '-m', 'Initial commit before merging branches', '--allow-empty'])
 
     # For each branch to be merged, setup a local branch to merge into.
     for branch, distro in branches_to_merge.items():
@@ -122,9 +122,9 @@ def main(sysargv=None):
                 trashed_files = True
                 call(['git', 'rm', os.path.join(repo, '.travis.yml')])
             if trashed_files:
-                call(['git', 'commit', '-m', 'removing vestigial files after merging'])
+                call(['git', 'commit', '-m', 'Removing vestigial files after merging'])
 
-        print("\n==> Adding new README.md and .gitignore for branch '{0}'".format(branch))
+        print("\n==> Moving README.md, .travis.yml, and .gitignore for branch '{0}'".format(branch))
 
         copy_file(os.path.join(template_dir, 'README.md'), '.')
         copy_file(os.path.join(template_dir, '.gitignore'), '.')
@@ -137,7 +137,7 @@ def main(sysargv=None):
                     continue
                 copy_file(file_path, '.')
         call(['git', 'add', '.'])
-        call(['git', 'commit', '-m', 'adding new README.md and .gitignore'])
+        call(['git', 'commit', '-m', 'Moving README.md, .travis.yml, and .gitignore'])
         call(['git', 'tag', '-d', branch + '/initial'])
 
     # Remove master branch
