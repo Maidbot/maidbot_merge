@@ -112,12 +112,7 @@ def main(sysargv=None):
 
         print("\n==> Adding new README.md and .gitignore for branch '{0}'".format(branch))
         template_file(
-            os.path.join(template_dir, 'README.md.template'),
-            os.path.join('README.md'),
-            {
-                '__DISTRO__': distro,
-                '__DISTRO_CAPS__': distro.capitalize(),
-            }
+            os.path.join(template_dir, 'README.md')
         )
         copy_file(os.path.join(template_dir, '.gitignore'), '.')
         if os.path.isdir(os.path.join(template_dir, distro)):
