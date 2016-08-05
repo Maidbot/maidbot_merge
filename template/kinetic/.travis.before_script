@@ -10,5 +10,8 @@ wget http://build.osrfoundation.org/job/fcl0.5-pkg_builder-master-generic/24/art
 wget http://build.osrfoundation.org/job/fcl0.5-pkg_builder-master-generic/24/artifact/pkgs/libfcl0.5-dbg_0.5.0-1osrf1~xenial1_amd64.deb
 wget http://build.osrfoundation.org/job/fcl0.5-pkg_builder-master-generic/24/artifact/pkgs/libfcl-0.5-dev_0.5.0-1osrf1~xenial1_amd64.deb
 dpkg -i libfcl0.5_0.5.0-1osrf1~xenial1_amd64.deb
+sudo apt-get install -f
 dpkg -i libfcl0.5-dbg_0.5.0-1osrf1~xenial1_amd64.deb
+sudo apt-get install -f
 dpkg -i libfcl-0.5-dev_0.5.0-1osrf1~xenial1_amd64.deb
+sudo apt-get install -f
