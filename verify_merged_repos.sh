@@ -48,6 +48,15 @@ for ((i=0;i<NUM_REPOS;i++)); do
     echo "--------------------------------------------------------"
     echo ""
 
+    # Clone the original version and make sure it has all the branches
+    git clone ${REPO_URL} ${REPO_NAME}_verification || errorFunc
+    cd ${REPO_NAME}_verification
+    git co kinetic-devel || errorFunc # kinetic is the default
+    git co -b indigo-devel origin/indigo-devel || errorFunc
+    git co -b jade-devel origin/jade-devel || errorFunc
+    cd ..
+
+    # For each branch
     for ((j=0;j<NUM_BRANCHES;j++)); do
         if [ "$j" -eq "0" ]; then
             BRANCH_NAME=kinetic-devel
@@ -57,20 +66,20 @@ for ((i=0;i<NUM_REPOS;i++)); do
             BRANCH_NAME=indigo-devel
         fi
 
-        # Switch to the correct branch to test
+        # Switch repo being tested to the correct branch
         git co $BRANCH_NAME || errorFunc
 
-        # Clone the original version
-        git clone ${REPO_URL} -b ${BRANCH_NAME}  ${REPO_NAME}_${BRANCH_NAME} || errorFunc
-        # Do not compare git repos
-        rm -rf ${REPO_NAME}_${BRANCH_NAME}/.git
+        # Switch comparison repo
+        cd ${REPO_NAME}_verification || errorFunc
+        git co $BRANCH_NAME || errorFunc
+        cd ..
 
         echo "---------------------------------------"
         echo "Comparing $BRANCH_NAME:"
-        diff -x '.gitignore' -x '.travis.yml' -r ${REPO_NAME} ${REPO_NAME}_${BRANCH_NAME} || errorFunc
+        diff -x '.gitignore' -x '.travis.yml' -x '.git' -r ${REPO_NAME} ${REPO_NAME}_verification || errorFunc
         echo "PASSED!"
         echo ""
-
-        rm -rf ${REPO_NAME}_${BRANCH_NAME}
     done
+
+    rm -rf ${REPO_NAME}_verification || errorFunc
 done

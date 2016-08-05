@@ -10,7 +10,7 @@ import subprocess
 import time
 
 # Set git version for compatibility
-git_pre_274 = True # Set True for Ubuntu 16.04, False for William/OSX
+git_pre_274 = False # Set True for Ubuntu 16.04, False for William/OSX
 
 repos_to_merge = OrderedDict([
     ('moveit_commander', 'http://github.com/ros-planning/moveit_commander.git'),
